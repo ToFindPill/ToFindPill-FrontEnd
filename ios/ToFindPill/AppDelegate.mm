@@ -22,7 +22,14 @@
 - (NSURL *)bundleURL
 {
 #if DEBUG
-  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
+  // Attempt to get the URL from RCTBundleURLProvider
+  NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
+  if (jsCodeLocation) {
+    return jsCodeLocation;
+  }
+  
+  // Fallback to manual URL if RCTBundleURLProvider does not provide a URL
+  return [NSURL URLWithString:@"http://localhost:8088/index.bundle?platform=ios&dev=true"];
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
