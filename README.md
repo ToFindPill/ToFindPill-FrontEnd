@@ -1,79 +1,75 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# ToFindPill
 
-# Getting Started
+**ToFindPill** is a cutting-edge mobile application designed to facilitate the quick and accurate recognition of drugs using advanced image processing and deep learning technologies. This application aims to help users, including healthcare professionals and patients, to identify drugs by simply capturing their image through a smartphone.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Features
 
-## Step 1: Start the Metro Server
+- **Image Capture and Upload:** Users can capture drug images directly using the smartphone camera or upload existing images from their gallery.
+- **Image Quality Check:** Automatic verification ensures that the images meet the necessary quality standards for recognition.
+- **Image Preprocessing:** Enhances image quality by correcting lighting, removing background noise, and resizing images for optimal processing.
+- **Drug Feature Extraction:** Uses sophisticated algorithms to extract key features such as shape, color, and text from the drug images.
+- **Real-Time Recognition:** Leverages a robust deep learning model to analyze images and provide real-time drug identification.
+- **Database Integration:** Connects to an extensive drug database to fetch detailed information about the identified drugs.
+- **User Interface:** Provides an intuitive interface displaying detailed drug information, including a confidence score that reflects the accuracy of the recognition.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Technologies Used
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- **Mobile Development:** Built using React Native, ensuring a smooth and consistent user experience across both iOS and Android platforms.
+- **Backend:** The server-side operations are handled by Node.js with an Express framework to manage API requests efficiently.
+- **Database:** Utilizes MongoDB for flexible and scalable data storage.
+- **Machine Learning:** The application employs a deep learning model developed with TensorFlow to perform drug recognition.
 
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Prerequisites
+
+- **npm**
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+  npm install npm@latest -g
+```
+- **React Native**
+```bash
+  npm install -g react-native-cli
 ```
 
-## Step 2: Start your Application
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+### Installation
 
 ```bash
-# using npm
-npm run android
+#Clone the repo
+  git clone https://github.com/yourusername/ToFindPill.git
 
-# OR using Yarn
-yarn android
+# Install NPM packages
+  npm install
+
+#Start the application
+react-native run-android # For Android
+react-native run-ios # For iOS
 ```
 
-### For iOS
+## Usage
 
-```bash
-# using npm
-npm run ios
+Launch the application on your mobile device. Start by capturing a drug image or selecting an image from your gallery. Follow the on-screen instructions to view the drug's details and related information.
 
-# OR using Yarn
-yarn ios
-```
+## Contributing
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+- Fork the Project
+- Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+- Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+- Push to the Branch (`git push origin feature/AmazingFeature`)
+- Open a Pull Request
 
-## Step 3: Modifying your App
+## License
 
-Now that you have successfully run the app, let's modify it.
+Distributed under the MIT License. See LICENSE for more information.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Contact
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+Your Name - your-email@example.com
 
-## Congratulations! :tada:
+**Project Link:** [https://github.com/yourusername/ToFindPill](https://github.com/yourusername/ToFindPill)
 
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
