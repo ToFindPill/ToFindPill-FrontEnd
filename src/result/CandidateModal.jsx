@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, Modal, Button, StyleSheet, ScrollView, Dimensions } from 'react-native';
 
 const screenHeight = Dimensions.get('window').height;
@@ -9,6 +9,7 @@ const CandidateModal = ({ isVisible, candidates, selectedModalDrug, onSelect, on
 
   const handleShowDetail = (drug) => {
     setDetailedDrug(drug);
+    console.log('detailedDrug.image', drug?.image2 )
     setShowDetail(true);
   };
 
@@ -16,6 +17,9 @@ const CandidateModal = ({ isVisible, candidates, selectedModalDrug, onSelect, on
     setShowDetail(false);
     setDetailedDrug(null);
   };
+  // useEffect(() => {
+  // }, [detailedDrug]);
+
 
   return (
     <Modal visible={isVisible} transparent={true} animationType="slide">
@@ -26,11 +30,11 @@ const CandidateModal = ({ isVisible, candidates, selectedModalDrug, onSelect, on
               <TouchableOpacity onPress={handleBackToList}>
                 <Text style={styles.backButton}>뒤로 가기</Text>
               </TouchableOpacity>
-              <Image source={{ uri: detailedDrug.image }} style={styles.detailImage} />
+              <Image source={{ uri: detailedDrug.image2 }} style={styles.detailImage} />
               <Text style={styles.detailName}>{detailedDrug.name}</Text>
               <Text style={styles.detailInfo}>성분: {detailedDrug.ingredient}</Text>
               <Text style={styles.detailInfo}>첨가제: {detailedDrug.additives}</Text>
-              <Text style={styles.detailInfo}>도핑금지 정보: {detailedDrug.dopingInfo}</Text>
+              <Text style={styles.detailInfo}>외형 설명: {detailedDrug.description}</Text>
               <Text style={styles.detailInfo}>제조사: {detailedDrug.manufacturer}</Text>
             </View>
           ) : (
@@ -43,7 +47,7 @@ const CandidateModal = ({ isVisible, candidates, selectedModalDrug, onSelect, on
                 >
                   <Text style={styles.modalItemTitle}>TOP {item.rank}</Text>
                   <View style={styles.modalItemContent}>
-                    <Image source={{ uri: item.image }} style={styles.modalImage} />
+                    <Image source={{ uri: item.image2 }} style={styles.modalImage} />
                     <View style={styles.modalInfo}>
                       <Text style={styles.modalPercentage}>{item.percentage}</Text>
                       <Text style={styles.modalName}>{item.name}</Text>

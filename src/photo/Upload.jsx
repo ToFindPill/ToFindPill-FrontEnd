@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { Button } from 'react-native-paper';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ActivityIndicator } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
-import {widthPercentage, heightPercentage, fontPercentage} from 'Responsive';
+import { widthPercentage, heightPercentage } from 'Responsive';
 
-const ImageUploadScreen = ({navigation}) => {
+const ImageUploadScreen = ({ navigation }) => {
   const [imageUri, setImageUri] = useState(null);
-  
+  const [isLoading, setIsLoading] = useState(false);
+
   const selectImage = () => {
     const options = {
       mediaType: 'photo',
@@ -15,9 +15,9 @@ const ImageUploadScreen = ({navigation}) => {
 
     launchImageLibrary(options, (response) => {
       if (response.didCancel) {
-        console.log('User cancelled image picker');
+        console.log('사용자가 이미지 선택을 취소했습니다.');
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        console.log('이미지 선택 오류:', response.error);
       } else if (response.assets && response.assets.length > 0) {
         const source = { uri: response.assets[0].uri };
         setImageUri(source.uri);
@@ -25,29 +25,73 @@ const ImageUploadScreen = ({navigation}) => {
     });
   };
 
-  const uploadImage = () => {
-    // Handle image upload logic here
-    console.log('Image uploaded:', imageUri);
-    navigation.navigate('Loading');
+  const uploadImage = async () => {
+    if (!imageUri) {
+      Alert.alert('이미지를 선택하지 않았습니다', '업로드할 이미지를 선택해주세요.');
+      return;
+    }
+
+    setIsLoading(true); // 업로드 시작 시 로딩 상태로 전환
+
+    const formData = new FormData();
+    formData.append('image', {
+      uri: imageUri,
+      name: 'upload.jpg',
+      type: 'image/jpeg',
+    });
+
+    try {
+      const response = await fetch('http://192.168.0.166:3000/api/upload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('이미지 업로드 성공:', data);
+        setIsLoading(false); // 업로드 성공 시 로딩 상태 해제
+        Alert.alert('업로드 성공', `메시지: ${data.message}`);
+        navigation.navigate('Result', { prediction: data.prediction }); // 결과 화면으로 이동
+      } else {
+        console.log('업로드 실패:', data);
+        setIsLoading(false); // 업로드 실패 시 로딩 상태 해제
+        Alert.alert('업로드 실패', `오류: ${data.message}`);
+      }
+    } catch (error) {
+      console.log('오류 발생:', error);
+      setIsLoading(false); // 예외 발생 시 로딩 상태 해제
+      Alert.alert('업로드 오류', `오류가 발생했습니다: ${error.message}`);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>이미지를 업로드해주세요!</Text>
-      <TouchableOpacity style={styles.uploadBox} onPress={selectImage}>
-        {imageUri ? (
-          <Image source={{ uri: imageUri }} style={styles.image} />
-        ) : (
-          <Text style={styles.uploadText}>Click to Upload</Text>
-        )}
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.uploadButton}
-        onPress={() => {
-          uploadImage();
-        }}>
-        <Text style={styles.btnText}>업로드</Text>
-      </TouchableOpacity>
+      {isLoading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#2082C9" />
+          <Text style={styles.loadingText}>업로드 중...</Text>
+        </View>
+      ) : (
+        <>
+          <Text style={styles.title}>이미지를 업로드해주세요!</Text>
+          <TouchableOpacity style={styles.uploadBox} onPress={selectImage}>
+            {imageUri ? (
+              <Image source={{ uri: imageUri }} style={styles.image} />
+            ) : (
+              <Text style={styles.uploadText}>업로드를 클릭하세요</Text>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.uploadButton}
+            onPress={uploadImage}>
+            <Text style={styles.btnText}>업로드</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };
@@ -59,6 +103,16 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
     alignItems: 'center',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    fontSize: 18,
+    marginTop: 10,
+    color: '#2082C9',
   },
   title: {
     fontSize: 22,
@@ -105,7 +159,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff',
     fontWeight: 'bold',
-  }
+  },
 });
 
 export default ImageUploadScreen;
