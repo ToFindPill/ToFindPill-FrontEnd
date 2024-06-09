@@ -14,7 +14,6 @@ import {Camera} from 'react-native-vision-camera';
 
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import { log } from '../../node_modules 2/async';
-// import Icon from 'react-native-vector-icons/Ionicons';
 const Home = ({navigation, route}) => {
   // const navigation = useNavigation();
 

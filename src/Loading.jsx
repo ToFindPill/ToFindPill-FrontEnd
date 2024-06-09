@@ -2,14 +2,14 @@ import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 
 const LoadingScreen = ({navigation}) => {
-  useEffect(() => {
-    // Simulate a loading process
-    const timer = setTimeout(() => {
-      navigation.navigate('Result');
-    }, 3000); // 3 seconds
+  // useEffect(() => {
+  //   // Simulate a loading process
+  //   const timer = setTimeout(() => {
+  //     navigation.navigate('Result');
+  //   }, 3000); // 3 seconds
 
-    return () => clearTimeout(timer);
-  }, [navigation]);
+  //   return () => clearTimeout(timer);
+  // }, [navigation]);
 
   return (
     <View style={styles.container}>
