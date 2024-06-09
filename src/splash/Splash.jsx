@@ -7,7 +7,7 @@ const Splash = ({navigation, route}) => {
   useEffect(() => {
     setTimeout(function () {
       console.log('Executed after 1 second');
-      navigation.reset({routes: [{name: 'Home'}]});
+      navigation.reset({routes: [{name: 'Login'}]});
     }, 1000);
     
   }, []);

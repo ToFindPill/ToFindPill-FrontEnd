@@ -20,8 +20,8 @@ import CameraScreen from 'photo/CameraScreen';
 import Upload from 'photo/Upload';
 import Loading from 'Loading';
 import DrugDetailScreen from 'detail/DrugDetailScreen';
-// import Login from 'login/Login';
-// import Signup from 'login/Signup';
+import Login from 'login/Login';
+import Signup from 'login/Signup';
 
 const Stack = createStackNavigator();
 function App() {
@@ -44,7 +44,7 @@ function App() {
             component={Splash}
             options={{headerShown: false}}
           />
-          {/* <Stack.Screen
+          <Stack.Screen
             options={{
               title: '로그인',
               headerShown: false,
@@ -63,7 +63,7 @@ function App() {
             }}
             name="Signup"
             component={Signup}
-          /> */}
+          />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="CameraScreen" component={CameraScreen} />
           <Stack.Screen name="Upload" component={Upload} />
